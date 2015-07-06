@@ -14,12 +14,13 @@ namespace social_navigation_layers
         ros::NodeHandle nh("~/" + name_), g_nh;
         current_ = true;
         first_time_ = true;
-        people_sub_ = nh.subscribe("/people", 1, &SocialLayer::peopleCallback, this);
+        people_sub_ = nh.subscribe("/people_tracker/people", 1, &SocialLayer::peopleCallback, this);
     }
     
     void SocialLayer::peopleCallback(const people_msgs::People& people) {
-        boost::recursive_mutex::scoped_lock lock(lock_);
-        people_list_ = people;
+        boost::recursive_mutex::scoped_lock lock(lock_);        
+	people_list_ = people;
+	std::cout<<"social_layer: peopleCallback"<<std::endl;
     }
 
 
